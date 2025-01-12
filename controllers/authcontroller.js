@@ -5,6 +5,7 @@ const handleErrors = (err) =>{
     console.log(err.message, err.code);
     let errors = {email:'',password:''};
 
+    
     //validation error 
     if(err.message.includes('Student validation failed')){
        Object.values(err.errors).forEach(({properties}) => {
@@ -13,6 +14,13 @@ const handleErrors = (err) =>{
        })
        
     }
+    
+    //duplicate error code 
+    if(err.code ===11000){
+        errors.email = 'that email is already registered'
+        return errors;
+    }
+
     return errors;
 }
 
